@@ -1,13 +1,13 @@
-import React from 'react'
+import React, { AnchorHTMLAttributes } from 'react'
 
-interface LinkProps {
-  text: string
+interface LinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   link: string
+  external?: boolean
 }
 
-const Link: React.FunctionComponent<LinkProps> = ({ text = 'Link text', link = '' }: LinkProps) => {
+const Link: React.FunctionComponent<LinkProps> = ({ link = '', external = false, children, ...props }: LinkProps) => {
   return (
-    <a className='font-medium hover:underline' href={ link } target="_blank" rel="noreferrer">{ text }</a>
+    <a {...props} className='font-medium hover:underline' href={ link } target={external ? '_blank' : ''} rel='noreferrer'>{ children }</a>
   )
 }
 
