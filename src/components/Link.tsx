@@ -7,7 +7,7 @@ interface LinkProps {
 
 const Link: React.FunctionComponent<LinkProps> = ({ text = 'Link text', link = '' }: LinkProps) => {
   return (
-    <a className='hover:underline font-medium' href={ link } target="_blank">{ text }</a>
+    <a className='font-medium hover:underline' href={ link } target="_blank" rel="noreferrer">{ text }</a>
   )
 }
 
