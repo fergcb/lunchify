@@ -1,14 +1,17 @@
 import { ReactElement } from 'react'
-import Button from './components/Button'
-import Input from './components/Input'
-import Link from './components/Link'
+import getAccessToken from './api/getAccessToken'
+import LoginButton from './components/LoginButton'
 
 function App (): ReactElement {
+  const accessToken = getAccessToken()
+  const loggedIn = accessToken !== null
+
   return <>
-    <h1 className='text-4xl font-bold'>Lunchify</h1>
-    <Input text='Enter a song name' type='text' />
-    <Button bgColor='bg-green-500'>Buton text</Button>
-    <Link link='https://www.google.com'>Link</Link>
+    <h1 className="text-4xl font-bold">Lunchify</h1>
+    { loggedIn
+      ? <p>{ accessToken }</p>
+      : <LoginButton />
+    }
   </>
 }
 
