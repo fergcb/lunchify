@@ -7,7 +7,7 @@ export default async function getUsersPlaylists (): Promise<any[]> {
   if (accessToken === null) {
     throw new Error('No access token - cant get playlists')
   }
-  // get a list of the users playlists limitied to 50
+  // get a list of the users playlists limited to 50
   const response = await fetch('https://api.spotify.com/v1/me/playlists?limit=50', {
     headers: {
       Authorization: 'Bearer ' + (accessToken),
@@ -19,12 +19,13 @@ export default async function getUsersPlaylists (): Promise<any[]> {
   const playlistsFound = playlists.items.length
   // create an empty array to store the basic information of each playlist
   const allPlaylists: any[] = []
+  // loop through all playlists
   for (let i = 0; i < playlistsFound; i++) {
     // from the json object extract relevant information that can be used
     const playlistName = playlists.items[i].name
     const playListId = playlists.items[i].id
     const playListImageUrl = playlists.items[i].images[1].url
-    // create the array of information for ech playlist
+    // create the array of information for each playlist
     const playlistInfo: any[] = [playlistName, playListId, playListImageUrl]
     // append the information for each playlist to allPlaylists array
     allPlaylists.push(playlistInfo)
