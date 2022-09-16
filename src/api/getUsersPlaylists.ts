@@ -28,6 +28,7 @@ export default async function getUsersPlaylists (): Promise<Playlist[]> {
     // from the json object extract relevant information that can be used
       const playlistName = playlists.items[i].name
       const playListId = playlists.items[i].id
+      const playListUri = playlists.items[i].uri
       let playListImageUrl: string
       // check images length before assigning image url TODO
       if ((playlists.items[i].images).length < 2) {
@@ -36,7 +37,7 @@ export default async function getUsersPlaylists (): Promise<Playlist[]> {
         playListImageUrl = playlists.items[i].images[1].url
       }
       // create the Playlist interface for each playlist
-      const playlistInfo: Playlist = { name: playlistName, playListId, playListImage: playListImageUrl }
+      const playlistInfo: Playlist = { name: playlistName, playListId, playListUri, playListImage: playListImageUrl }
       // append the information for each playlist
       UserPlaylists.push(playlistInfo)
     }
