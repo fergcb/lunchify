@@ -21,12 +21,14 @@ export default async function getSongFromId (songId: string): Promise<Song> {
   // get artist and artist ID
   const artist: string = allSongInfo.artists[0].name
   const artistId: string = allSongInfo.artists[0].id
+  const artistUri: string = allSongInfo.artists[0].uri
   // get album and album ID and album artwork
   const album: string = allSongInfo.album.name
   const albumId: string = allSongInfo.album.id
+  const albumUri: string = allSongInfo.album.uri
   const albumArt: string = allSongInfo.album.images[1].url
   // format the Song interface
-  const songInfo: Song = { name, artist, artistId, album, albumId, albumArt }
+  const songInfo: Song = { name, artist, artistId, artistUri, album, albumId, albumUri, albumArt }
 
   return songInfo
 }
