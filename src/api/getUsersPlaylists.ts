@@ -38,6 +38,7 @@ export default async function getUsersPlaylists (): Promise<Playlist[]> {
       }
       // create the Playlist interface for each playlist
       const playlistInfo: Playlist = { name: playlistName, playListId, playListUri, playListImage: playListImageUrl }
+      
       // append the information for each playlist
       UserPlaylists.push(playlistInfo)
     }
