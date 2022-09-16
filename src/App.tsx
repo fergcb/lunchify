@@ -1,18 +1,20 @@
 import { ReactElement } from 'react'
 import getAccessToken from './api/getAccessToken'
-import LoginButton from './components/LoginButton'
+import Header from './components/Header'
+import GamePage from './pages/GamePage'
+import LandingPage from './pages/LandingPage'
 
 function App (): ReactElement {
   const accessToken = getAccessToken()
   const loggedIn = accessToken !== null
 
-  return <>
-    <h1 className="text-4xl font-bold">Lunchify</h1>
+  return <div className='flex h-screen flex-col'>
+  <Header loggedIn={loggedIn} />
     { loggedIn
-      ? <p>{ accessToken }</p>
-      : <LoginButton />
+      ? <GamePage accessToken={accessToken} />
+      : <LandingPage />
     }
-  </>
+  </div>
 }
 
 export default App
