@@ -21,14 +21,25 @@ export default async function getUsersPlaylists (): Promise<Playlist[]> {
   const UserPlaylists: Playlist[] = []
   // loop through all playlists
   for (let i = 0; i < playlistsFound; i++) {
+    // if playlist is empty skip
+    if (playlists.items[i].tracks.total === 0) {
+      continue
+    } else {
     // from the json object extract relevant information that can be used
-    const playlistName = playlists.items[i].name
-    const playListId = playlists.items[i].id
-    const playListImageUrl = playlists.items[i].images[1].url
-    // create the Playlist interface for each playlist
-    const playlistInfo: Playlist = { name: playlistName, playListId, playListImage: playListImageUrl }
-    // append the information for each playlist
-    UserPlaylists.push(playlistInfo)
+      const playlistName = playlists.items[i].name
+      const playListId = playlists.items[i].id
+      let playListImageUrl: string
+      // check images length before assigning image url TODO
+      if ((playlists.items[i].images).length < 2) {
+        playListImageUrl = playlists.items[i].images[0].url
+      } else {
+        playListImageUrl = playlists.items[i].images[1].url
+      }
+      // create the Playlist interface for each playlist
+      const playlistInfo: Playlist = { name: playlistName, playListId, playListImage: playListImageUrl }
+      // append the information for each playlist
+      UserPlaylists.push(playlistInfo)
+    }
   }
 
   return UserPlaylists
