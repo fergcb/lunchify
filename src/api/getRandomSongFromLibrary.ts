@@ -1,7 +1,7 @@
 import getAccessToken from './getAccessToken'
 import { Song } from '../interfaces/Song'
 
-export default async function getSavedTrack (previousTargets: string[]): Promise<Song> {
+export default async function getRandomSongFromLibrary (previousTargets: string[]): Promise<Song> {
   const accessToken = getAccessToken()
   if (accessToken === null) {
     throw new Error('No access token - cannot fetch user saved tracks')
