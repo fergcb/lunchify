@@ -1,7 +1,7 @@
 import getAccessToken from './getAccessToken'
-import { Song } from '../interfaces/Song'
+import Track from '../types/Track'
 
-export default async function getRandomSongFromLibrary (previousTargets: string[]): Promise<Song> {
+export default async function getRandomTrackFromLibrary (previousTargets: string[]): Promise<Track> {
   const accessToken = getAccessToken()
   if (accessToken === null) {
     throw new Error('No access token - cannot fetch user saved tracks')
@@ -11,7 +11,7 @@ export default async function getRandomSongFromLibrary (previousTargets: string[
     throw new Error('No saved tracks found')
   }
   let exit: boolean = false
-  let songJson
+  let data
   // keep fetching random song until one is found that doesn't exist in previous targets
   while (!exit) {
     const offset = Math.floor(Math.random() * (totalTracksCount - 1))
@@ -20,26 +20,29 @@ export default async function getRandomSongFromLibrary (previousTargets: string[
         Authorization: 'Bearer ' + accessToken,
       },
     })
-    songJson = await response.json()
-    const uri: string = songJson.items[0].track.uri
+    data = await response.json()
+    const uri: string = data.items[0].track.uri
     if (!previousTargets.includes(uri)) {
-      console.log(songJson)
+      console.log(data)
       exit = true
     }
   }
-  // get song name
-  const name: string = songJson.items[0].track.name
-  // get artist and artist ID
-  const artist: string = songJson.items[0].track.artists[0].name
-  const artistId: string = songJson.items[0].track.artists[0].id
-  const artistUri: string = songJson.items[0].track.artists[0].uri
-  // get album and album ID and album artwork
-  const album: string = songJson.items[0].track.album.name
-  const albumId: string = songJson.items[0].track.album.id
-  const albumUri: string = songJson.items[0].track.album.uri
-  const albumArt: string = songJson.items[0].track.album.images[1].url
-  const songInfo: Song = { name, artist, artistId, artistUri, album, albumId, albumUri, albumArt }
-  return songInfo
+
+  const artist = data.artists[0]
+  const album = data.album
+
+  return {
+    name: data.name,
+    artist: {
+      name: artist.name,
+      uri: artist.uri,
+    },
+    album: {
+      name: album.name,
+      uri: album.uri,
+      image: album.images[1].url,
+    },
+  }
 }
 
 async function getSavedTracksCount (): Promise<number> {

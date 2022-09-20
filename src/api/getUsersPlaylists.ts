@@ -1,4 +1,4 @@
-import { Playlist } from '../interfaces/Playlist'
+import Playlist from '../types/Playlist'
 import getAccessToken from './getAccessToken'
 
 // function to return an array of playlist information for a user and returned as a Playlist interface
@@ -26,18 +26,17 @@ export default async function getUsersPlaylists (): Promise<Playlist[]> {
       continue
     } else {
     // from the json object extract relevant information that can be used
-      const playlistName = playlists.items[i].name
-      const playListId = playlists.items[i].id
-      const playListUri = playlists.items[i].uri
-      let playListImageUrl: string
+      const name = playlists.items[i].name
+      const uri = playlists.items[i].uri
+      let image: string
       // check images length before assigning image url TODO
       if ((playlists.items[i].images).length < 2) {
-        playListImageUrl = playlists.items[i].images[0].url
+        image = playlists.items[i].images[0].url
       } else {
-        playListImageUrl = playlists.items[i].images[1].url
+        image = playlists.items[i].images[1].url
       }
       // create the Playlist interface for each playlist
-      const playlistInfo: Playlist = { name: playlistName, playListId, playListUri, playListImage: playListImageUrl }
+      const playlistInfo: Playlist = { name, uri, image }
       // append the information for each playlist
       UserPlaylists.push(playlistInfo)
     }
