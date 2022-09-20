@@ -2,9 +2,11 @@ import Turn from './Turn'
 
 export default class Game {
   turns: Turn[]
+  targetURI: string
 
-  constructor () {
+  constructor (targetURI: string) {
     this.turns = []
+    this.targetURI = targetURI
   }
 
   addTurn (guess: string | null): void {

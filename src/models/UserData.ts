@@ -2,11 +2,14 @@ import Game from './Game'
 
 export default class UserData {
   games: Game[]
-  currentGame: Game
+  currentGame: Game | undefined
 
   constructor () {
     this.games = []
-    this.currentGame = new Game()
+  }
+
+  setCurrentGame (game: Game): void {
+    this.currentGame = game
   }
 
   saveGames (): void {
@@ -20,7 +23,9 @@ export default class UserData {
   }
 
   commitCurrentGame (): void {
-    this.games.push(this.currentGame)
-    this.saveGames()
+    if (this.currentGame !== undefined) {
+      this.games.push(this.currentGame)
+      this.saveGames()
+    }
   }
 }
