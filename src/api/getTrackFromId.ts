@@ -3,7 +3,7 @@ import Track from '../types/Track'
 import { extractID } from './utils'
 import { TrackURI } from '../types/URI'
 
-export default async function getSongFromId (trackURI: TrackURI): Promise<Track> {
+export default async function getTrackFromId (trackURI: TrackURI): Promise<Track> {
   const accessToken = getAccessToken()
   if (accessToken === null) {
     throw new Error('No access token - cant get playlists')

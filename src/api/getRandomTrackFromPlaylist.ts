@@ -4,7 +4,7 @@ import { extractID } from './utils'
 
 // playlist id to test with 1H1n2YSDnV1Ooplw00LROs
 // function to return a random song from a given playlist ID and returns songID
-export default async function getRandomSongFromPlaylist (playlistURI: PlaylistURI): Promise<TrackURI> {
+export default async function getRandomTrackFromPlaylist (playlistURI: PlaylistURI): Promise<TrackURI> {
   const accessToken = getAccessToken()
   if (accessToken === null) {
     throw new Error('No access token - cant get playlists')
