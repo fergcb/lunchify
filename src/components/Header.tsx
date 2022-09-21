@@ -1,10 +1,6 @@
-import React from 'react'
+import { ReactElement } from 'react'
 
-interface HeaderProps {
-  loggedIn: boolean
-}
-
-const Header: React.FunctionComponent<HeaderProps> = ({ loggedIn }: HeaderProps) => {
+export default function Header (): ReactElement {
   return (
     <nav className='flex items-center justify-between bg-black-700 px-6 py-3 text-purple-100'>
         <h2 className='font-bold'>Lunchify</h2>
@@ -15,5 +11,3 @@ const Header: React.FunctionComponent<HeaderProps> = ({ loggedIn }: HeaderProps)
     </nav>
   )
 }
-
-export default Header

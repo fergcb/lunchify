@@ -1,7 +1,7 @@
-import React from 'react'
+import { ReactElement } from 'react'
 import LoginButton from '../components/LoginButton'
 
-const LandingPage: React.FunctionComponent = () => {
+export default function LandingPage (): ReactElement {
   return (
     <div className='flex h-full flex-col items-center justify-center'>
       <h1 className='text-xl font-bold'>Lunchify</h1>
@@ -10,5 +10,3 @@ const LandingPage: React.FunctionComponent = () => {
     </div>
   )
 }
-
-export default LandingPage

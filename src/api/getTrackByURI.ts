@@ -1,22 +1,13 @@
-import getAccessToken from './getAccessToken'
 import Track from '../types/Track'
 import { extractID } from './utils'
 import { TrackURI } from '../types/URI'
+import { api } from '.'
 
-export default async function getTrackFromId (trackURI: TrackURI): Promise<Track> {
-  const accessToken = getAccessToken()
-  if (accessToken === null) {
-    throw new Error('No access token - cant get playlists')
-  }
-
+export default async function getTrackByURI (trackURI: TrackURI): Promise<Track> {
   const trackID = extractID(trackURI)
 
   // fetch the song information
-  const response = await fetch(`https://api.spotify.com/v1/tracks/${trackID}`, {
-    headers: {
-      Authorization: 'Bearer ' + (accessToken),
-    },
-  })
+  const response = await api.get(`/tracks/${trackID}`)
 
   // parse the response JSON
   const data = await response.json()
