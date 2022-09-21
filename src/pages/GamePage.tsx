@@ -1,13 +1,9 @@
-import React from 'react'
+import { ReactElement } from 'react'
 import Input from '../components/Input'
 import Button from '../components/Button'
 import PlaybackControls from '../components/PlaybackControls'
 
-interface GamePageProps {
-  accessToken: string
-}
-
-const GamePage: React.FunctionComponent<GamePageProps> = ({ accessToken }: GamePageProps) => {
+export default function GamePage (): ReactElement {
   return (
     <div className='flex h-full w-full flex-col'>
         <div id='search-form' className='flex h-full flex-col items-center justify-center'>
@@ -19,5 +15,3 @@ const GamePage: React.FunctionComponent<GamePageProps> = ({ accessToken }: GameP
     </div>
   )
 }
-
-export default GamePage

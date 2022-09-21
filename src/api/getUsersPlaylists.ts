@@ -1,46 +1,20 @@
 import Playlist from '../types/Playlist'
-import getAccessToken from './getAccessToken'
+import { api } from '.'
 
-// function to return an array of playlist information for a user and returned as a Playlist interface
+// Return an array of playlist information for a user
 export default async function getUsersPlaylists (): Promise<Playlist[]> {
-  const accessToken = getAccessToken()
-  if (accessToken === null) {
-    throw new Error('No access token - cant get playlists')
-  }
-  // get a list of the users playlists limited to 50
-  const response = await fetch('https://api.spotify.com/v1/me/playlists?limit=50', {
-    headers: {
-      Authorization: 'Bearer ' + (accessToken),
-    },
-  })
-  // return json for all playlists of the user
-  const playlists = await response.json()
-  // how many playlists were found
-  const playlistsFound = playlists.items.length
-  // create an empty array to store the information of each playlist
-  const UserPlaylists: Playlist[] = []
-  // loop through all playlists
-  for (let i = 0; i < playlistsFound; i++) {
-    // if playlist is empty skip
-    if (playlists.items[i].tracks.total === 0) {
-      continue
-    } else {
-    // from the json object extract relevant information that can be used
-      const name = playlists.items[i].name
-      const uri = playlists.items[i].uri
-      let image: string
-      // check images length before assigning image url TODO
-      if ((playlists.items[i].images).length < 2) {
-        image = playlists.items[i].images[0].url
-      } else {
-        image = playlists.items[i].images[1].url
-      }
-      // create the Playlist interface for each playlist
-      const playlistInfo: Playlist = { name, uri, image }
-      // append the information for each playlist
-      UserPlaylists.push(playlistInfo)
-    }
-  }
+  // Fetch up to 50 of the current user's saved playlists
+  const res = await api.get('https://api.spotify.com/v1/me/playlists?limit=50')
+  const data = await res.json()
+  const playlists = data.items
 
-  return UserPlaylists
+  return playlists
+    // Omit empty playlists
+    .filter((playlist: any) => playlist.tracks.total > 0)
+    // Extract only needed data
+    .map((playlist: any) => ({
+      name: playlist.name,
+      uri: playlist.uri,
+      image: playlist.images.length < 2 ? playlist.images[0] : playlist.images[1],
+    }))
 }
