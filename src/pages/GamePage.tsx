@@ -2,6 +2,7 @@ import { ReactElement } from 'react'
 import Input from '../components/Input'
 import Button from '../components/Button'
 import PlaybackControls from '../components/PlaybackControls'
+import Player from '../components/Player'
 
 export default function GamePage (): ReactElement {
   return (
@@ -11,6 +12,7 @@ export default function GamePage (): ReactElement {
           <Input type='text' text='Enter song/artist name' />
           <Button bgColor='bg-purple-500'>Submit</Button>
         </div>
+        <Player />
         <PlaybackControls />
     </div>
   )

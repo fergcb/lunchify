@@ -9,18 +9,29 @@ export default class SpotifyClient {
     auth.init()
   }
 
-  async get (resource: string, options: RequestInit = {}): Promise<Response> {
+  async fetch (resource: string, options: RequestInit = {}): Promise<Response> {
     if (!api.auth.ready) throw new Error(`Request to '${resource}' forbidden: client must be authenticated.`)
 
     return await fetch(
-      new URL(resource, this.baseURL),
+      this.baseURL + resource,
       {
         ...options,
-        method: 'GET',
         headers: {
           Authorization: `Bearer ${this.auth.token}`,
         },
       },
     )
+  }
+
+  async get (resource: string, options: RequestInit = {}): Promise<Response> {
+    return await this.fetch(resource, { ...options, method: 'GET' })
+  }
+
+  async post (resource: string, options: RequestInit = {}): Promise<Response> {
+    return await this.fetch(resource, { ...options, method: 'POST' })
+  }
+
+  async put (resource: string, options: RequestInit = {}): Promise<Response> {
+    return await this.fetch(resource, { ...options, method: 'PUT' })
   }
 }

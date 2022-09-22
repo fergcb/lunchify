@@ -17,4 +17,4 @@ export type SpotifyURI<T extends ResourceType> = `spotify:${T}:${SpotifyID}`
 export type AlbumURI = SpotifyURI<ResourceType.Album>
 export type ArtistURI = SpotifyURI<ResourceType.Artist>
 export type PlaylistURI = SpotifyURI<ResourceType.Playlist>
-export type TrackURI = SpotifyURI<ResourceType.Artist>
+export type TrackURI = SpotifyURI<ResourceType.Track>

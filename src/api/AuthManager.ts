@@ -3,7 +3,7 @@ const EXPIRY_KEY = 'spotify-token-expiry'
 
 const CLIENT_ID = 'd7f2768db15a4ee8bfadf8ab80921a25'
 const REDIRECT_URI = 'http://localhost:3000/'
-const SCOPE = 'user-read-email user-library-read user-top-read playlist-read-private streaming'
+const SCOPE = 'user-read-email user-read-private user-library-read user-top-read playlist-read-private streaming'
 const BASE_URL = 'https://accounts.spotify.com/authorize'
 
 export default class AuthManager {

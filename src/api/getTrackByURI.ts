@@ -17,6 +17,7 @@ export default async function getTrackByURI (trackURI: TrackURI): Promise<Track>
 
   return {
     name: data.name,
+    uri: data.uri,
     artist: {
       name: artist.name,
       uri: artist.uri,
