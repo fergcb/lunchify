@@ -26,6 +26,8 @@ export default class UserData {
     if (this.currentGame !== undefined) {
       this.games.push(this.currentGame)
       this.saveGames()
+    } else {
+      throw new Error('No current game to commit')
     }
   }
 }
