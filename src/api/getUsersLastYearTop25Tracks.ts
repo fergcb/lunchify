@@ -1,9 +1,9 @@
 import Track from '../types/Track'
 import { api } from '.'
 
-// function to return an array of songs for the users most played songs
+// function to return an array of songs for the users most played songs in the last year
 export default async function getUsersLastYearTop25Tracks (): Promise<Track[]> {
-  // get a list of the users top 50 tracks
+  // get a list of the users top 25 tracks
   const response = await api.get('/v1/me/top/tracks?time_range=medium_term&limit=25&offset=0')
   // return json for all songs
   const topTracksResponse = await response.json()
