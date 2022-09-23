@@ -1,8 +1,10 @@
+import { TrackURI } from '../types/URI'
+
 export default class Turn {
   // spotify track URI, or null if skipped
-  guess: string | null
+  guess: TrackURI | null
 
-  constructor (guess: string | null) {
+  constructor (guess: TrackURI | null) {
     this.guess = guess
   }
 }
