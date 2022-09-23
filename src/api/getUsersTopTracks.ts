@@ -3,13 +3,17 @@ import { api } from '.'
 
 /*
     Function to return an array of songs for the users most played songs
-    short_term is the users top played songs in the last month and has a max return of 25
-    medium_term is the users top played songs in the last year and has a max return of 25
-    long_term is the users top played songs and has a max return of 50
+
+    timeRange:
+      'short_term' -> last 4 weeks
+      'medium_term'-> last 6 months
+      'long_term' -> several years of data
+
+    limit is the number of songs to return, max = 50
 */
 export default async function getUsersTopTracks (timeRange: 'short_term' | 'medium_term' | 'long_term', limit: number): Promise<Track[]> {
   // get a list of the users top tracks
-  const response = await api.get(`/v1/me/top/tracks?time_range=${timeRange}&limit=${limit}&offset=0`)
+  const response = await api.get(`/me/top/tracks?time_range=${timeRange}&limit=${limit}&offset=0`)
   const topTracksResponse = await response.json()
   const tracks = topTracksResponse.items
   // return all tracks with only the needed data
@@ -17,7 +21,7 @@ export default async function getUsersTopTracks (timeRange: 'short_term' | 'medi
     .map((track: any) => ({
       name: track.name,
       artist: {
-        name: track.artists[0],
+        name: track.artists[0].name,
         uri: track.artists[0].uri,
       },
       album: {
