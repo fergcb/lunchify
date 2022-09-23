@@ -7,24 +7,25 @@ export default async function getRandomTrackFromLibrary (previousTargets: string
     throw new Error('No saved tracks found')
   }
   let exit: boolean = false
-  let data
+  let track
   // keep fetching random song until one is found that doesn't exist in previous targets
   while (!exit) {
     const offset = Math.floor(Math.random() * (totalTracksCount - 1))
     const response = await api.get(`/me/tracks?offset=${offset}&limit=1`)
-    data = await response.json()
-    const uri: string = data.items[0].track.uri
+    const data = await response.json()
+    track = data.items[0].track
+    const uri: string = track.uri
     if (!previousTargets.includes(uri)) {
-      console.log(data)
       exit = true
     }
   }
 
-  const artist = data.artists[0]
-  const album = data.album
+  const artist = track.artists[0]
+  const album = track.album
 
   return {
-    name: data.name,
+    name: track.name,
+    uri: track.uri,
     artist: {
       name: artist.name,
       uri: artist.uri,
