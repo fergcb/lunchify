@@ -1,15 +1,16 @@
+import { TrackURI } from '../types/URI'
 import Turn from './Turn'
 
 export default class Game {
   turns: Turn[]
-  targetURI: string
+  targetURI: TrackURI
 
-  constructor (targetURI: string) {
+  constructor (targetURI: TrackURI) {
     this.turns = []
     this.targetURI = targetURI
   }
 
-  addTurn (guess: string | null): void {
+  addTurn (guess: TrackURI | null): void {
     this.turns.push(new Turn(guess))
   }
 
