@@ -13,7 +13,7 @@ export default class SpotifyClient {
     if (!api.auth.ready) throw new Error(`Request to '${resource}' forbidden: client must be authenticated.`)
 
     return await fetch(
-      new URL(resource, this.baseURL),
+      this.baseURL + resource,
       {
         ...options,
         headers: {
